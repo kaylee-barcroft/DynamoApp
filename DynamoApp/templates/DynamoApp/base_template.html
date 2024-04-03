@@ -25,7 +25,7 @@
            <div class="navbar-nav">
              <!--  {% url 'index' %}  is defined in url path to dynamically create url -->
              <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
-             <a class="nav-link" href="#">Single Origin Offerings</a>
+             <a class="nav-link" href="{% url 'single-origins' %}">Single Origin Offerings</a>
              <a class="nav-link" href="#">Our Makers</a>
              {% comment %} {% if user.is_authenticated %}
                <a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout {{user}}</a>

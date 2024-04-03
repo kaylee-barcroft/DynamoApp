@@ -1,0 +1,27 @@
+{% extends "DynamoApp/base_template.html" %}
+
+{% block content %}
+<h1>Single Origin Offerings</h1>
+<a href="{% url 'create-single-origin' %}" class="btn btn-primary" role="button">Add Offering</a>
+{% if singleorigin_list %}
+    <ul>
+        {% for singleorigin in singleorigin_list %}
+            <li>    
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ singleorigin.image }}" class="card-img-top">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ singleorigin.farm }}</h5>
+                      <p class="card-text">{{ singleorigin.tasting_notes }}</p>
+                      <a href="{{ singleorigin.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
+                      <a href="{% url 'update-single-origin' singleorigin.pk %}" class="btn btn-primary" role="button">Edit</a>
+                      <a href="{% url 'delete-single-origin' singleorigin.pk %}" class="btn btn-primary" role="button">Delete</a>
+                    </div>
+                  </div>
+            
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>There are no single origin offerings registered.</p>
+    {% endif %}
+{% endblock %}

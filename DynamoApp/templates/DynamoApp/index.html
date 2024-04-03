@@ -1,10 +1,15 @@
 {% extends "DynamoApp/base_template.html" %}
 
 {% block content %}
-<h1>Single Origin Coffee</h1>
+<h1>Dynamo Coffee Roasting Company</h1>
 
 
-<h2>More to come from Kaylee Barcroft</h2>
-
-
+<h2>Current Single Origin Offerings</h2>
+<ul class="list-group">
+    {% for i in current_so_offerings %}
+        <li class="list-group-item"><strong>Farm: </strong>{{ i.farm }}
+            <a href="{{ i.get_absolute_url }}" class="btn btn-primary" role="button">View Details</a>
+        </li>
+{% endfor %}
+</ul>
 {% endblock %}

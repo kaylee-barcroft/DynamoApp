@@ -1,0 +1,14 @@
+{% extends "DynamoApp/base_template.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>{{ singleorigin.farm }}</h1>
+
+    <img src="{{ singleorigin.image }}">
+    <p><strong>About:</strong> {{ singleorigin.about }}</p>
+    <p><strong>Tasting Notes:</strong> {{ singleorigin.tasting_notes }}</p>
+    <p><strong>Available:</strong> {{ singleorigin.available }}</p>
+    
+    
+
+{% endblock %}

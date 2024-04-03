@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Delete Farm: {{ single_origin }}</h1>
+<h1>Delete Farm: {{ singleorigin }}</h1>
 
 <p>Are you sure you want to delete this listing?</p>
 
@@ -11,6 +11,6 @@
   <input type="submit" action="" value="Yes, delete.">
 </form>
 
-<a href="{{ single_origin.get_absolute_url }}" class="btn btn-primary" role="button">Go Back</a>
+<a href="{{ singleorigin.get_absolute_url }}" class="btn btn-primary" role="button">Go Back</a>
 
 {% endblock %}

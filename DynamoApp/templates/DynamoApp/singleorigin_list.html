@@ -1,4 +1,5 @@
 {% extends "DynamoApp/base_template.html" %}
+{% load static %}
 
 {% block content %}
 <h1>Single Origin Offerings</h1>
@@ -8,7 +9,9 @@
         {% for singleorigin in singleorigin_list %}
             <li>    
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ singleorigin.image }}" class="card-img-top">
+                    {% if singleorigin.image %}
+                        <img src="{% static 'images' %}/{{singleorigin.image}}">
+                        {% endif %}
                     <div class="card-body">
                       <h5 class="card-title">{{ singleorigin.farm }}</h5>
                       <p class="card-text">{{ singleorigin.tasting_notes }}</p>

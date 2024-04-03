@@ -3,10 +3,11 @@
 
 {% block content %}
     <h1>{{ singleorigin.farm }}</h1>
-
-    <img src="{{ singleorigin.image }}">
+    {% if singleorigin.image %}
+        <img src="{% static 'images' %}/{{singleorigin.image}}" width="400" height="300">
+    {% endif %}
     <p><strong>About:</strong> {{ singleorigin.about }}</p>
-    <p><strong>Tasting Notes:</strong> {{ singleorigin.tasting_notes }}</p>
+    <p><strong>Tasting Notes:</strong> {{ singleorigin.roast_profile }}</p>
     <p><strong>Available:</strong> {{ singleorigin.available }}</p>
     
     

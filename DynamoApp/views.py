@@ -24,35 +24,35 @@ def createSingleOrigin(request):
         single_origin_data = request.POST.copy()
         form = SingleOriginForm(single_origin_data)
         if form.is_valid():
-            single_origin = form.save()
-
-            return redirect('single-origin-detail', SingleOrigin.objects.get(id))
+            form.save()
+            
+            return redirect('single-origins') # need to reference the pk of the instance
     
     context = {'form': form}
     return render(request, 'DynamoApp/single_origin_form.html', context)
 
 
-def updateSingleOrigin(request):
-    so = SingleOrigin.objects.get(id)
+def updateSingleOrigin(request, pk):
+    so = SingleOrigin.objects.get(id=pk)
     form = SingleOriginForm(instance=so)
 
     if request.method == 'POST':
         form = SingleOriginForm(request.POST, instance=so)
         if form.is_valid():
             single_origin = form.save()
-
-            return redirect('single-origin-detail', SingleOrigin.objects.get(id))
+            return redirect('single-origin-detail', pk)
     
     context = {'form': form}
     return render(request, 'DynamoApp/single_origin_form.html', context)
 
 
-def deleteSingleOrigin(request):
-    so = SingleOrigin.objects.get(id)
+def deleteSingleOrigin(request, pk):
+    so = SingleOrigin.objects.get(id=pk)
 
     if request.method == 'POST':
         so.delete()
         messages.success(request, "The single-origin instance has been deleted.")
+        return redirect('single-origins')
 
     context = {'item': so}
     return render(request, 'DynamoApp/single_origin_delete.html', context)

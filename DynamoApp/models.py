@@ -8,7 +8,7 @@ class SingleOrigin(models.Model):
     farm = models.CharField(max_length=200)
     about = models.CharField(max_length=3000)
     roast_profile = models.CharField(max_length=500)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(upload_to='images/', blank=True)
     available = models.BooleanField(default=True)
 
     #Define default String to return the name for representing the Model object."

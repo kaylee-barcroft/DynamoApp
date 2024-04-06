@@ -1,16 +1,33 @@
 {% extends "DynamoApp/base_template.html" %}
 
 {% block content %}
+<div class="text-center">
+    <h1><strong>Dynamo Coffee Roasting Company</strong></h1>
 
-<h1>Dynamo Coffee Roasting Company</h1>
+    <h2>Store Hours</h2>
+    <p>Monday: 7am - 4pm</p>
+    <p>Tuesday: CLOSED</p>
+    <p>Wednesday: 7am - 4pm</p>
+    <p>Thursday: 7am - 4pm</p>
+    <p>Friday: 7am - 4pm</p>
+    <p>Saturday: 7am - 4pm</p>
+    <p>Sunday: 7am - 4pm</p>
 
+    <h2>Current Single Origin Offerings</h2>
+</div> 
 
-<h2>Current Single Origin Offerings</h2>
+<div class="container-sm bg-info-subtle">
 <ul class="list-group">
     {% for i in current_so_offerings %}
-        <li class="list-group-item"><strong>Farm: </strong>{{ i.farm }}
-            <a href="{{ i.get_absolute_url }}" class="btn btn-primary" role="button">View Details</a>
-        </li>
-{% endfor %}
+        <a href="{{ i.get_absolute_url }}" class="list-group-item list-group-item-action list-group-item-warning" ><strong>{{ i.farm }}</strong></a>
+    {% endfor %}
 </ul>
+</div>
+
+<div class="text-center bg-info-subtle">
+    <h2>Contact Us</h2>
+    <p><strong>Email: </strong>dynamocoffeeco@gmail.com</p>
+    <p><strong>Phone: </strong>(719)638-2644</p>
+</div>
+
 {% endblock %}

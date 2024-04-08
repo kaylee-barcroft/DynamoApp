@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -10,6 +11,7 @@ class SingleOrigin(models.Model):
     roast_profile = models.CharField(max_length=500)
     image = models.ImageField(upload_to='images/', blank=True)
     available = models.BooleanField(default=True)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     #Define default String to return the name for representing the Model object."
     def __str__(self):
@@ -20,3 +22,6 @@ class SingleOrigin(models.Model):
     # add a "View on Site" button to the model's record editing screens in the Admin site
     def get_absolute_url(self):
         return reverse('single-origin-detail', args=[str(self.id)])
+    
+
+#class Manager(models.Group):

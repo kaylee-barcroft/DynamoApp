@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -8,4 +8,18 @@ urlpatterns = [
     path('singleorigin/create', views.createSingleOrigin, name='create-single-origin'),
     path('singleorigin/<int:pk>/update', views.updateSingleOrigin, name='update-single-origin'),
     path('singleorigin/<int:pk>/delete', views.deleteSingleOrigin, name='delete-single-origin'),
+    
+    #user accounts
+    path('accounts/', include('django.contrib.auth.urls')),
+    #django.contrib.auth.urls maps the following urls:
+    ## for all: accounts/ 
+    ##
+    #login/
+    #logout/
+    #password_change/
+    #password_change/done/
+    #password_reset/
+    #password_reset/done/
+    #reset/<uidb64>/<token>/
+    #reset/done/
 ]

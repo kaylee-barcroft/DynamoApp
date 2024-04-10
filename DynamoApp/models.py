@@ -1,6 +1,7 @@
 from django.db import models
+from django.forms import ModelForm
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 # Create your models here.
 
@@ -24,4 +25,9 @@ class SingleOrigin(models.Model):
         return reverse('single-origin-detail', args=[str(self.id)])
     
 
-#class Manager(models.Group):
+class Manager(Group):
+    managerUser = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+
+
+class Customer(Group):
+    customerUser = models.OneToOneField(User, null=True, on_delete=models.CASCADE)

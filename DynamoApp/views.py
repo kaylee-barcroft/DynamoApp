@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 from django.views import generic
-from .forms import SingleOriginForm
+from .forms import SingleOriginForm, CreateUserForm
 from django.contrib import messages
+from django.contrib.auth.models import Group
 
-# Create your views here.
+
 def index(request):
     # render the HTML template with data from the context variable.
     current_so_offerings = SingleOrigin.objects.all().filter(available=True)
@@ -56,3 +57,26 @@ def deleteSingleOrigin(request, pk):
 
     context = {'item': so}
     return render(request, 'DynamoApp/single_origin_delete.html', context)
+
+
+def registerPage(request):
+
+    form = CreateUserForm()
+
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='Customer')
+            user.groups.add(group)
+            customer = Customer.objects.create(user=user,)
+            # portfolio = Portfolio.objects.create()
+            # student.portfolio = portfolio
+            customer.save()
+
+            messages.success(request, 'Account was created for ' + username)
+            return redirect('login')
+        
+    context = {'form':form}
+    return render(request, 'registration/register.html', context)

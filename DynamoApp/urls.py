@@ -11,6 +11,7 @@ urlpatterns = [
     
     #user accounts
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register/', views.registerPage, name='register_page'),
     #django.contrib.auth.urls maps the following urls:
     ## for all: accounts/ 
     ##

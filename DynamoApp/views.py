@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import *
 from django.views import generic
-from .forms import SingleOriginForm, CreateUserForm
 from django.contrib import messages
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+
+from .forms import SingleOriginForm, CreateUserForm
+from .models import *
+from .decorators import unauthenticated_user, allowed_users
 
 
 def index(request):
@@ -18,6 +21,8 @@ class SingleOriginDetailView(generic.DetailView):
 class SingleOriginListView(generic.ListView):
     model = SingleOrigin
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Manager'])
 def createSingleOrigin(request):
     form = SingleOriginForm
 
@@ -33,6 +38,8 @@ def createSingleOrigin(request):
     return render(request, 'DynamoApp/single_origin_form.html', context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Manager'])
 def updateSingleOrigin(request, pk):
     so = SingleOrigin.objects.get(id=pk)
     form = SingleOriginForm(instance=so)
@@ -47,6 +54,8 @@ def updateSingleOrigin(request, pk):
     return render(request, 'DynamoApp/single_origin_form.html', context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Manager'])
 def deleteSingleOrigin(request, pk):
     so = SingleOrigin.objects.get(id=pk)
 
@@ -58,11 +67,9 @@ def deleteSingleOrigin(request, pk):
     context = {'item': so}
     return render(request, 'DynamoApp/single_origin_delete.html', context)
 
-
+@unauthenticated_user
 def registerPage(request):
-
     form = CreateUserForm()
-
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
@@ -77,6 +84,6 @@ def registerPage(request):
 
             messages.success(request, 'Account was created for ' + username)
             return redirect('login')
-        
+    
     context = {'form':form}
     return render(request, 'registration/register.html', context)

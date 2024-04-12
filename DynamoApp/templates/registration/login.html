@@ -5,7 +5,7 @@
 
   <!-- doesn't work correctly - do not want to do all messages-->
   {% for message in messages %}
-    <p>{{message}}</p>
+    <p id="messages">{{message}}</p>
   {% endfor %}
 
   {% if form.errors %}

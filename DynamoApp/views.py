@@ -15,11 +15,14 @@ def index(request):
     current_so_offerings = SingleOrigin.objects.all().filter(available=True)
     return render(request, 'DynamoApp/index.html', {'current_so_offerings':current_so_offerings})
 
+
 class SingleOriginDetailView(generic.DetailView):
     model = SingleOrigin
 
+
 class SingleOriginListView(generic.ListView):
     model = SingleOrigin
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Manager'])
@@ -66,6 +69,7 @@ def deleteSingleOrigin(request, pk):
 
     context = {'item': so}
     return render(request, 'DynamoApp/single_origin_delete.html', context)
+
 
 @unauthenticated_user
 def registerPage(request):

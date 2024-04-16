@@ -130,7 +130,7 @@ venv.bak/
 /djvenv
 
 # Chrome
-DynamoApp/DynamoApp/tests/chrome-win64
+DynamoApp/tests/chrome-win64
 
 # Spyder project settings
 .spyderproject

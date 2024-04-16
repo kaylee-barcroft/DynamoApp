@@ -4,7 +4,9 @@
 {% block content %}
 <div class="container-fluid text-center">
 <h1>Single Origin Offerings</h1>
+{% if request.user.is_staff %}
 <a href="{% url 'create-single-origin' %}" class="btn btn-primary" role="button">Add Offering</a>
+{% endif %}
 </div>
 <div class="card-deck">
     {% if singleorigin_list %}
@@ -18,8 +20,10 @@
                       <h5 class="card-title text-center">{{ singleorigin.farm }}</h5>
                       <p class="card-text">{{ singleorigin.roast_profile }}</p>
                       <a href="{{ singleorigin.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
+                      {% if request.user.is_staff %}
                       <a href="{% url 'update-single-origin' singleorigin.pk %}" class="btn btn-primary" role="button">Edit</a>
                       <a href="{% url 'delete-single-origin' singleorigin.pk %}" class="btn btn-danger" role="button">Delete</a>
+                      {% endif %}
                     </div>
                   
             

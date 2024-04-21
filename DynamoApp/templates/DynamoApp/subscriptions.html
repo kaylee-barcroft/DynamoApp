@@ -1,0 +1,13 @@
+{% extends "DynamoApp/base_template.html" %}
+
+{% block content %}
+<h2>Subscriptions</h2>
+{% if subscription %}
+    <p><strong>Plan: </strong>{{ subscription.plan.name }}</p>
+    <p><strong>Start date: </strong>{{ subscription.plan.start_date }}</p>
+    <p><strong>End date: </strong>{{ subscription.plan.end_date }}</p>
+{% else %}
+    <p>You are not subscribed to any plans yet.</p>
+{% endif %}
+
+{% endblock %}

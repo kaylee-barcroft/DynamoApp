@@ -5,6 +5,7 @@ from django.contrib.auth.models import User, Group
 
 # Create your models here.
 
+PLAN_TYPES = ['Espresso', 'Bright & Fruity', 'The Dark Side', 'Dealers Choice']
 
 class SingleOrigin(models.Model):
     farm = models.CharField(max_length=200)
@@ -31,3 +32,17 @@ class Manager(Group):
 
 class Customer(Group):
     customerUser = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+
+
+class Plan(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    description = models.CharField(max_length=200)
+    duration = models.IntegerField(help_text='How many months?')
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
+    start_date = models.DateField(auto_now_add=True)
+    end_date = models.DateField()

@@ -5,9 +5,13 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 
-from .forms import SingleOriginForm, CreateUserForm
+from django_project import settings
+from .forms import SingleOriginForm, CreateUserForm, SubscriptionForm
 from .models import *
 from .decorators import unauthenticated_user, allowed_users
+
+import stripe
+# import dateutil
 
 
 def index(request):
@@ -91,3 +95,95 @@ def registerPage(request):
     
     context = {'form':form}
     return render(request, 'registration/register.html', context)
+
+
+@login_required(login_url='login')
+def subscribe(request):
+    if request.method == 'POST':
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        plan_id = request.POST['plan_id']
+        
+        form = SubscriptionForm(request.POST)
+        if form.is_valid():
+                plan = form.cleaned_data['plan']
+                subscription = Subscription(user=request.user,
+                                            plan=plan)
+                subscription.end_date = subscription.end_date
+                subscription.save()
+                return redirect('subscriptions')                    # need this view
+                
+    return render(request, 'subscribe.html', {'plan_id': plan_id})
+
+
+        # try:
+        #     customer = stripe.Customer.create(
+        #         email=request.user.email,
+        #         source=request.POST['stripeToken']
+        #     )
+
+        #     subscription = stripe.Subscription.create(
+        #         customer=customer.id,
+        #         items=[
+        #             {
+        #                 'plan': plan_id
+        #             }
+        #         ]
+        #     )
+
+        #     Subscription.objects.create(
+        #         user=request.user,
+        #         stripe_customer_id=customer.id,
+        #         stripe_subscription_id=subscription.id,
+        #         plan_id=plan_id
+        #     )
+
+        #     return render(request, 'success.html') # make this html
+        
+        # except stripe.error.CardError as e:
+        #     # handle card error
+        #     return render(request, 'error.html', {'error': e})
+        
+        # except Exception as e:
+        #     # other errors
+        #     return render(request, 'error.html', {'error': e})
+    
+    #plan_id = 'your_stripe_plan_id'
+
+
+
+@login_required(login_url='login')
+class SubscriptionsListView(generic.ListView):
+    model = Subscription
+
+
+def process_payment(request):
+    if request.method == 'POST':
+        card_number = request.POST['card_number']
+        expiry_date = request.POST['expiry_date']
+        cvc = request.POST['cvc']
+        
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        
+        try:
+            charge = stripe.Charge.create(
+                amount=1000,  # amount in cents
+                currency='usd',
+                source={
+                    'number': card_number,
+                    'exp_month': expiry_date.split('/')[0],
+                    'exp_year': expiry_date.split('/')[1],
+                    'cvc': cvc
+                },
+                description='Payment for Django Web App'
+            )
+            
+            # Process successful payment
+            return render(request, 'success.html')
+        
+        except stripe.error.CardError as e:
+            # Handle card error
+            return render(request, 'error.html', {'error': e})
+        
+        except Exception as e:
+            # Handle other exceptions
+            return render(request, 'error.html', {'error': e})

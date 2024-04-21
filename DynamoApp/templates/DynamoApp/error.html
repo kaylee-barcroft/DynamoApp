@@ -1,0 +1,9 @@
+{% extends "DynamoApp/base_template.html" %}
+
+{% block content %}
+
+<h2>Error!</h2>
+<p>We encountered an issue with your payment.</p>
+<a href="{% url 'subscriptions' %}" class="btn btn-primary" role="button">View Subscriptions</a>
+
+{% endblock %}

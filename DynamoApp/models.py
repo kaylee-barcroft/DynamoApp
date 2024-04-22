@@ -39,6 +39,9 @@ class Plan(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.CharField(max_length=200)
     duration = models.IntegerField(help_text='How many months?')
+    
+    def __str__(self):
+        return self.name
 
 
 class Subscription(models.Model):
@@ -46,3 +49,6 @@ class Subscription(models.Model):
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField()
+
+    def __str__(self):
+        return self.plan

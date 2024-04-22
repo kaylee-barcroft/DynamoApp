@@ -8,6 +8,8 @@
     <p><strong>End date: </strong>{{ subscription.plan.end_date }}</p>
 {% else %}
     <p>You are not subscribed to any plans yet.</p>
+
 {% endif %}
+    <a class="btn btn-primary" href="{% url 'subscribe' %}" role="button">New Subscription</a>
 
 {% endblock %}

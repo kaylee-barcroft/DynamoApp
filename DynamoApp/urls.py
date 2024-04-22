@@ -8,8 +8,9 @@ urlpatterns = [
     path('singleorigin/create', views.createSingleOrigin, name='create-single-origin'),
     path('singleorigin/<int:pk>/update', views.updateSingleOrigin, name='update-single-origin'),
     path('singleorigin/<int:pk>/delete', views.deleteSingleOrigin, name='delete-single-origin'),
-    path('subscriptions/', views.SubscriptionsListView.as_view(), 'subscriptions'),
+    path('subscriptions/', views.SubscriptionsListView.as_view(), name='subscriptions'),
     path('payment/', views.process_payment, name='process_payment'),
+    path('subscribe', views.subscribe, name='subscribe'),
 
     #user accounts
     path('accounts/', include('django.contrib.auth.urls')),

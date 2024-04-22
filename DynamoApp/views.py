@@ -11,7 +11,7 @@ from .models import *
 from .decorators import unauthenticated_user, allowed_users
 
 import stripe
-# import dateutil
+import datetime
 
 
 def index(request):
@@ -99,20 +99,20 @@ def registerPage(request):
 
 @login_required(login_url='login')
 def subscribe(request):
+    form = SubscriptionForm
     if request.method == 'POST':
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        plan_id = request.POST['plan_id']
-        
         form = SubscriptionForm(request.POST)
+
         if form.is_valid():
                 plan = form.cleaned_data['plan']
                 subscription = Subscription(user=request.user,
                                             plan=plan)
                 subscription.end_date = subscription.end_date
                 subscription.save()
-                return redirect('subscriptions')                    # need this view
+                return redirect('subscriptions')
                 
-    return render(request, 'subscribe.html', {'plan_id': plan_id})
+    return render(request, 'DynamoApp/subscribe.html', {'form':form})
 
 
         # try:
@@ -137,7 +137,7 @@ def subscribe(request):
         #         plan_id=plan_id
         #     )
 
-        #     return render(request, 'success.html') # make this html
+        #     return render(request, 'success.html')
         
         # except stripe.error.CardError as e:
         #     # handle card error
@@ -151,7 +151,7 @@ def subscribe(request):
 
 
 
-@login_required(login_url='login')
+#@login_required(login_url='login')
 class SubscriptionsListView(generic.ListView):
     model = Subscription
 

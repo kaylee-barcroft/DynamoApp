@@ -4,5 +4,6 @@ from selenium import webdriver
 # Create your tests here.
 
 driver = webdriver.Chrome()
-driver.get("https://www.google.com/")
+driver.get("127.0.0.1:8000/")
+driver.get("127.0.0.1:8000/singleorigins/")
 driver.quit()

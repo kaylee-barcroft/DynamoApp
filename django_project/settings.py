@@ -142,3 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 
 # LOGOUT_REDIRECT_URL = 'logout' (commented out because this does weird stuff)
+
+# Stripe keys
+STRIPE_SECRET_KEY = 'sk_test_51P6FCjP4OcRI8CJ5rcZ6vvUfz5MboFa2T9DVE9oUFTWmgbLXqgaxwRbvA5ugtX9ngbMwHPMxF9obsTxP52L55TE600qUisMnF1'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51P6FCjP4OcRI8CJ5w3Y66Xy61RrQNdTdfkfLB5rcOSikFiduVBgbpX2adzpU8h9q8jp3VKhJLjAmb1oDe2YyNKqt00DqZqMc2Y'

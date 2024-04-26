@@ -8,9 +8,13 @@ urlpatterns = [
     path('singleorigin/create', views.createSingleOrigin, name='create-single-origin'),
     path('singleorigin/<int:pk>/update', views.updateSingleOrigin, name='update-single-origin'),
     path('singleorigin/<int:pk>/delete', views.deleteSingleOrigin, name='delete-single-origin'),
+   
+    #stripe-based urls
     path('subscriptions/', views.SubscriptionsListView.as_view(), name='subscriptions'),
     path('payment/', views.process_payment, name='process_payment'),
     path('subscribe', views.subscribe, name='subscribe'),
+    path('plans/', views.PlansListView.as_view(), name='plans'),
+    path('plans/create', views.create_plan, name='create-plan'),
 
     #user accounts
     path('accounts/', include('django.contrib.auth.urls')),

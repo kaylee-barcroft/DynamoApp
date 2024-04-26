@@ -53,8 +53,8 @@ class SingleOriginFormTest(LiveServerTestCase):
 
         submit = driver.find_element(By.NAME, 'submit')
 
-        user_name.send_keys('krbar')
-        user_password.send_keys('3kitties')
+        user_name.send_keys('admin')
+        user_password.send_keys('admin')
 
         submit.send_keys(Keys.RETURN)
 
@@ -89,7 +89,7 @@ class SingleOriginDetailViewTest(LiveServerTestCase):
         driver = webdriver.Chrome()
         driver.get('http://127.0.0.1:8000/singleorigins/')
 
-        view_button = driver.find_element(By.CLASS_NAME, 'card')
+        view_button = driver.find_element(By.LINK_TEXT, '/singleorigin/10/') # currently not working - need better search params
         view_button.send_keys(Keys.RETURN)
         time.sleep(2)
         assert '/singleorigin/' in driver.current_url

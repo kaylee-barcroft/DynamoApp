@@ -1,0 +1,15 @@
+{% extends "DynamoApp/base_template.html" %}
+
+{% block content %}
+<h2>Plans</h2>
+{% if plan %}
+    <p><strong>Plan: </strong>{{ plan.name }}</p>
+    <p><strong>Description: </strong>{{ plan.description }}</p>
+    <p><strong>Price: </strong>{{ plan.price }}</p>
+{% else %}
+    <p>There are no plans yet.</p>
+
+{% endif %}
+    <a class="btn btn-primary" href="{% url 'create-plan' %}" role="button">Create a Plan</a>
+
+{% endblock %}

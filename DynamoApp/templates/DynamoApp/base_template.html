@@ -31,6 +31,7 @@
              <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
              <a class="nav-link" href="{% url 'single-origins' %}">Single Origin Offerings</a>
              {% comment %} <a class="nav-link" href="#">Our Makers</a> INCLUDE THIS IN NEXT SPRINT {% endcomment %}
+             <a class="nav-link" href="{% url 'plans' %}">Available Plans</a>
              {% if user.is_authenticated %}
                <a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout {{user}}</a>
              {% else %}

@@ -8,11 +8,12 @@
 <a href="{% url 'create-single-origin' %}" class="btn btn-primary" role="button" name='add_offering'>Add Offering</a>
 {% endif %}
 </div>
-<div class="card-deck">
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    
     {% if singleorigin_list %}
         {% for singleorigin in singleorigin_list %}
-                
-                <div class="card" style="width: 18rem;">
+        <div class="col">
+                <div class="card h-100">
                     {% if singleorigin.image %}
                         <img src="{% static 'images' %}/{{singleorigin.image}}" width="287" height="200">
                         {% endif %}
@@ -28,6 +29,7 @@
                   
             
                 </div>
+            </div>
         {% endfor %}
         
     
@@ -35,4 +37,5 @@
         <p>There are no single origin offerings registered.</p>
     {% endif %}
 </div>
+
 {% endblock %}

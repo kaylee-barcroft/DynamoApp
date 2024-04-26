@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 
 from django_project import settings
-from .forms import SingleOriginForm, CreateUserForm, SubscriptionForm
+from .forms import SingleOriginForm, CreateUserForm, SubscriptionForm, PlanForm
 from .models import *
 from .decorators import unauthenticated_user, allowed_users
 
@@ -97,6 +97,7 @@ def registerPage(request):
     return render(request, 'registration/register.html', context)
 
 
+# Stripe-dependent views
 @login_required(login_url='login')
 def subscribe(request):
     form = SubscriptionForm
@@ -150,7 +151,38 @@ def subscribe(request):
     #plan_id = 'your_stripe_plan_id'
 
 
+class PlansListView(generic.ListView):
+    model = Plan
 
+
+def create_plan(request):
+
+    form = PlanForm()
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    if request.method == 'POST':
+        form = PlanForm(request.POST)
+
+        if form.is_valid():
+            stripe.Product.create(
+                name=request.POST['name'],
+                #default_price_data=request.POST['price'],
+                description=request.POST['description']
+                              )
+            
+            plan = Plan(
+                        name=request.name, 
+                        price=request.price, 
+                        description=request.description
+                        )
+            
+            plan.save()
+            return redirect('plans')
+
+    return render(request, 'DynamoApp/plans_form.html', {'form':form})
+
+
+# Look into object-based perms for a subscription list view
 #@login_required(login_url='login')
 class SubscriptionsListView(generic.ListView):
     model = Subscription

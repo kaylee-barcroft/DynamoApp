@@ -85,10 +85,10 @@ def registerPage(request):
             username = form.cleaned_data.get('username')
             group = Group.objects.get(name='Customer')
             user.groups.add(group)
-            customer = Customer.objects.create(user=user,)
+            #customer = Customer.objects.create(user=user,)
             # portfolio = Portfolio.objects.create()
             # student.portfolio = portfolio
-            customer.save()
+            user.save()
 
             messages.success(request, 'Account was created for ' + username)
             return redirect('login')

@@ -22,7 +22,6 @@ class ViewsTestCase(TestCase):
             name = "Testpresso",
             price = 19.99,
             description = "Espresso",
-            duration = 3
         )
 
 

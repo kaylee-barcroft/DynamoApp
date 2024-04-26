@@ -34,7 +34,6 @@ class ModelTestCase(TestCase):
             name = "Testpresso",
             price = 19.99,
             description = "Espresso",
-            duration = 3
         )
 
 
@@ -51,7 +50,6 @@ class ModelTestCase(TestCase):
         self.assertEqual(self.plan.name, "Testpresso")
         self.assertEqual(self.plan.price, 19.99)
         self.assertEqual(self.plan.description, "Espresso")
-        self.assertEqual(self.plan.duration, 3)
         self.assertEqual(str(self.plan), self.plan.name)
         
 

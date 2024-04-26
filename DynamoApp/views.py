@@ -171,9 +171,9 @@ def create_plan(request):
                               )
             
             plan = Plan(
-                        name=request.name, 
-                        price=request.price, 
-                        description=request.description
+                        name=request.POST['name'], 
+                        price=request.POST['price'], 
+                        description=request.POST['description']
                         )
             
             plan.save()

@@ -2,35 +2,33 @@ name: CodeCov
 on: 
   push:
     branches:
-    
-main
-Auth
-sprint01
-sprint02
-pull_request:
-  branches:
-main
+    - main
+    - Auth
+    - sprint01
+    - sprint02
+  pull_request:
+    branches:
+    - main
 
 jobs:
   run:
     runs-on: windows-latest
     steps:
-    
-uses: actions/checkout@v4
-    with:
-      fetch-depth: "2"
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: "2"
 
     
-name: Setup Python
-    uses: actions/setup-python@master
-    with:
-      python-version: 3.11
-name: Generate Report
-  run: |
-    pip install django coverage
-    coverage run manage.py test
-name: Upload Coverage to Codecov
-uses: codecov/codecov-action@v4
-with:
-  token: ${{ secrets.CODECOV_TOKEN }}
-  slug: kaylee-barcroft/DynamoApp
+    - name: Setup Python
+      uses: actions/setup-python@master
+      with:
+        python-version: 3.11
+    - name: Generate Report
+      run: |
+        pip install django coverage
+        coverage run manage.py test
+    - name: Upload Coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: kaylee-barcroft/DynamoApp
